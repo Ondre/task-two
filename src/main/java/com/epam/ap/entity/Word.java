@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Word implements SentencePart {
-    List<SentenceSymbol> wordSymbols = new ArrayList<>();
+    private List<SentenceSymbol> wordSymbols = new ArrayList<>();
 
     public Word(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -20,8 +20,10 @@ public class Word implements SentencePart {
 
     @Override
     public String toString() {
-        return "Word{" +
-                "wordSymbols=" + wordSymbols +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for (SentenceSymbol symbol : wordSymbols) {
+            sb.append(symbol);
+        }
+        return sb.toString();
     }
 }

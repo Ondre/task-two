@@ -18,7 +18,7 @@ public class SentenceSymbol implements SentencePart {
         return type;
     }
 
-    public void setType(Type type) {
+    private void setType(Type type) {
         this.type = type;
     }
 
@@ -33,19 +33,11 @@ public class SentenceSymbol implements SentencePart {
 
     @Override
     public String toString() {
-        return "SentenceSymbol{" +
-                "value=" + value +
-                ", type=" + type +
-                '}';
+        return "SentenceSymbol{" + value + type + '}';
     }
 
     public enum Type {
-        WORDCHAR, PUNCTUATION, WHITESPACE;
-
-        public static Type getType(char value) {
-
-            return null;
-        }
+        WORDCHAR, PUNCTUATION, WHITESPACE
     }
 
     private static class Cache {

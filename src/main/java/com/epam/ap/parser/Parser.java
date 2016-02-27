@@ -33,7 +33,7 @@ public class Parser {
         Sentence result = new Sentence();
         final String whitespace = "(?<whitespace>\\s)";
         final String word = "(?<word>\\w+)";
-        final String punct = "(?<punct>\\p{P}+)";
+        final String punct = "(?<punct>\\p{P})";
         final String or = "|";
         Matcher matcher = Pattern.compile(word + or + punct + or + whitespace, Pattern.UNICODE_CHARACTER_CLASS).matcher(source);
 

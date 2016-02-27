@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sentence implements TextPart {
-    List<SentencePart> sentenceParts = new ArrayList<>();
+    private List<SentencePart> sentenceParts = new ArrayList<>();
 
     public void toPlaneText(StringBuilder sb) {
         for (SentencePart sentencePart : sentenceParts) {
@@ -24,5 +24,13 @@ public class Sentence implements TextPart {
         return "Sentence{" +
                 "sentenceParts=" + sentenceParts +
                 '}';
+    }
+
+    public int getWordCount() {
+        int result = 0;
+        for (SentencePart sentencePart : sentenceParts) {
+            if (sentencePart instanceof Word) result++;
+        }
+        return result;
     }
 }

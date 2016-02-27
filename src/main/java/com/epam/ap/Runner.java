@@ -3,17 +3,15 @@ package com.epam.ap;
 import com.epam.ap.entity.Text;
 import com.epam.ap.parser.Parser;
 
-import java.io.InputStream;
-import java.util.Scanner;
+import static com.epam.ap.util.ResourceService.getResourceAsString;
 
 public class Runner {
 
     public static void main(String[] args) {
-        InputStream in = Runner.class.getClassLoader().getResourceAsStream("text.txt");
-        Scanner sc = new Scanner(in);
-        String source = sc.useDelimiter("\\A").next();
+        String source = getResourceAsString("text.txt");
 
         Text text = Parser.parseText(source);
         System.out.println(text.toPlainString());
+        System.out.println(text.getWordCount());
     }
 }
