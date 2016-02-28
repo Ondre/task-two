@@ -6,7 +6,6 @@ import java.util.List;
 public class Text {
     private List<Paragraph> paragraphs = new ArrayList<>();
 
-
     public void add(Paragraph paragraph) {
         if (paragraph != null) {
             paragraphs.add(paragraph);
@@ -17,10 +16,11 @@ public class Text {
         return paragraph != null && paragraphs.remove(paragraph);
     }
 
-    public int getWordCount() {
+    public int getCount(Component c){
         int result = 0;
         for (Paragraph paragraph : paragraphs) {
-            result += paragraph.getWordCount();
+            if (c.equals(Component.PARAGRAPH)) result++;
+            else result += paragraph.getCount(c);
         }
         return result;
     }
@@ -38,5 +38,9 @@ public class Text {
         return "Text{" +
                 "paragraphs=" + paragraphs +
                 '}';
+    }
+
+    public enum Component {
+        PARAGRAPH, SENTENCE, WORD, WORD_SYMBOL, PUNCTUATION
     }
 }

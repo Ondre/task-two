@@ -3,17 +3,28 @@ package com.epam.ap.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sentence implements TextPart {
-    private List<SentencePart> sentenceParts = new ArrayList<>();
+public class Sentence implements TextComponent {
+    private List<SentenceComponent> sentenceParts = new ArrayList<>();
 
     public void toPlaneText(StringBuilder sb) {
-        for (SentencePart sentencePart : sentenceParts) {
+        for (SentenceComponent sentencePart : sentenceParts) {
             sentencePart.toPlaneText(sb);
         }
-
     }
 
-    public void add(SentencePart sentencePart) {
+    @Override
+    public int getCount(Text.Component c) {
+        int result = 0;
+        for (SentenceComponent sentencePart : sentenceParts) {
+            if (sentencePart instanceof Word) {
+                if (c.equals(Text.Component.WORD)) result++;
+                else if (c.equals(Text.Component.WORD_SYMBOL)) result += sentencePart.getCount(c);
+            } else if (c.equals(Text.Component.PUNCTUATION)) result += sentencePart.getCount(c);
+        }
+        return result;
+    }
+
+    public void add(SentenceComponent sentencePart) {
         if (sentencePart != null) {
             sentenceParts.add(sentencePart);
         }
@@ -26,11 +37,4 @@ public class Sentence implements TextPart {
                 '}';
     }
 
-    public int getWordCount() {
-        int result = 0;
-        for (SentencePart sentencePart : sentenceParts) {
-            if (sentencePart instanceof Word) result++;
-        }
-        return result;
-    }
 }

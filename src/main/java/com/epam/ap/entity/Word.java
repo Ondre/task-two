@@ -3,7 +3,7 @@ package com.epam.ap.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Word implements SentencePart {
+public class Word implements SentenceComponent {
     private List<SentenceSymbol> wordSymbols = new ArrayList<>();
 
     public Word(String s) {
@@ -16,6 +16,11 @@ public class Word implements SentencePart {
         for (SentenceSymbol wordSymbol : wordSymbols) {
             wordSymbol.toPlaneText(sb);
         }
+    }
+
+    @Override
+    public int getCount(Text.Component c) {
+        return wordSymbols.size();
     }
 
     @Override

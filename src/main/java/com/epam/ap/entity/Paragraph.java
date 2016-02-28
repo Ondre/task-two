@@ -3,7 +3,7 @@ package com.epam.ap.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paragraph implements TextPart {
+public class Paragraph implements TextComponent {
     private List<Sentence> sentences = new ArrayList<>();
 
     public void toPlaneText(StringBuilder sb) {
@@ -25,10 +25,12 @@ public class Paragraph implements TextPart {
                 '}';
     }
 
-    public int getWordCount() {
+
+    public int getCount(Text.Component c) {
         int result = 0;
         for (Sentence sentence : sentences) {
-            result += sentence.getWordCount();
+            if (c.equals(Text.Component.SENTENCE)) result++;
+            else  result += sentence.getCount(c);
         }
         return result;
     }

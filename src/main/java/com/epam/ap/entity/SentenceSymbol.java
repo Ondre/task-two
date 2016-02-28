@@ -1,6 +1,6 @@
 package com.epam.ap.entity;
 
-public class SentenceSymbol implements SentencePart {
+public class SentenceSymbol implements SentenceComponent {
     private char value;
     private Type type;
 
@@ -29,6 +29,13 @@ public class SentenceSymbol implements SentencePart {
     @Override
     public void toPlaneText(StringBuilder sb) {
         sb.append(value);
+    }
+
+    @Override
+    public int getCount(Text.Component c) {
+        if (c.equals(Text.Component.WORD_SYMBOL) && type.equals(Type.WORDCHAR)) return 1;
+        else if (c.equals(Text.Component.PUNCTUATION) && type.equals(Type.PUNCTUATION)) return 1;
+        return 0;
     }
 
     @Override
