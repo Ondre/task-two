@@ -1,34 +1,37 @@
 package com.epam.ap.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Word implements SentenceComponent {
-    private List<SentenceSymbol> wordSymbols = new ArrayList<>();
+public class Word extends CompoundTextComponent<SentenceSymbol> implements SentenceComponent, Comparable<Word> {
 
     public Word(String s) {
         for (int i = 0; i < s.length(); i++) {
-            wordSymbols.add(SentenceSymbol.valueOf(s.charAt(i), SentenceSymbol.Type.WORDCHAR));
-        }
-    }
-
-    public void toPlaneText(StringBuilder sb) {
-        for (SentenceSymbol wordSymbol : wordSymbols) {
-            wordSymbol.toPlaneText(sb);
+            components.add(SentenceSymbol.valueOf(s.charAt(i), Type.WORD_SYMBOL));
         }
     }
 
     @Override
-    public int getCount(Text.Component c) {
-        return wordSymbols.size();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (components.size() != ((Word) o).components.size()) return false;
+
+        CompoundTextComponent<?> that = (Word) o;
+
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+
+        for (int i = 0; i < components.size(); i++) {
+            this.components.get(i).toPlainString(sb1);
+            that.components.get(i).toPlainString(sb2);
+        }
+        String thisString = sb1.toString().toLowerCase();
+        String thatString = sb2.toString().toLowerCase();
+
+        return thisString.equals(thatString);
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (SentenceSymbol symbol : wordSymbols) {
-            sb.append(symbol);
-        }
-        return sb.toString();
+    public int compareTo(Word o) {
+        return Integer.compare(this.components.size(), o.components.size());
     }
 }

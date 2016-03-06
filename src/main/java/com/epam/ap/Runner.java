@@ -1,7 +1,11 @@
 package com.epam.ap;
 
+import com.epam.ap.entity.Sentence;
 import com.epam.ap.entity.Text;
 import com.epam.ap.parser.Parser;
+import com.epam.ap.service.TextService;
+
+import java.util.List;
 
 import static com.epam.ap.util.ResourceService.getResourceAsString;
 
@@ -11,12 +15,15 @@ public class Runner {
         String source = getResourceAsString("text.txt");
 
         Text text = Parser.parseText(source);
+        TextService ts = new TextService();
 
-        System.out.println(text.toPlainString());
-        System.out.println(text.getCount(Text.Component.PARAGRAPH));
-        System.out.println(text.getCount(Text.Component.SENTENCE));
-        System.out.println(text.getCount(Text.Component.WORD));
-        System.out.println(text.getCount(Text.Component.WORD_SYMBOL));
-        System.out.println(text.getCount(Text.Component.PUNCTUATION));
+        System.out.println(ts.getSentenceWithSameWordsCount(text));
+        List<Sentence> sentencesInAscendingOrderOfWordsAmount = ts.getSentencesWithAscendingWordsOrder(text);
+        StringBuilder sb = new StringBuilder();
+        for (Sentence sentence : sentencesInAscendingOrderOfWordsAmount) {
+            sentence.toPlainString(sb);
+            sb.append('\n');
+        }
+        System.out.println(sb);
     }
 }

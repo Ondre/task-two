@@ -14,6 +14,29 @@ public class SentenceSymbol implements SentenceComponent {
         return ss;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SentenceSymbol that = (SentenceSymbol) o;
+
+        return value == that.value;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) value;
+    }
+
+    @Override
+    public int getCount(Type c) {
+        if (c == Type.SYMBOL) return 1;
+        if (c == type) return 1;
+        return 0;
+    }
+
     public Type getType() {
         return type;
     }
@@ -27,24 +50,16 @@ public class SentenceSymbol implements SentenceComponent {
     }
 
     @Override
-    public void toPlaneText(StringBuilder sb) {
+    public void toPlainString(StringBuilder sb) {
         sb.append(value);
     }
 
     @Override
-    public int getCount(Text.Component c) {
-        if (c.equals(Text.Component.WORD_SYMBOL) && type.equals(Type.WORDCHAR)) return 1;
-        else if (c.equals(Text.Component.PUNCTUATION) && type.equals(Type.PUNCTUATION)) return 1;
-        return 0;
-    }
-
-    @Override
     public String toString() {
-        return "SentenceSymbol{" + value + type + '}';
-    }
-
-    public enum Type {
-        WORDCHAR, PUNCTUATION, WHITESPACE
+        return "SentenceSymbol{" +
+                "value=" + value +
+                ", type=" + type +
+                '}';
     }
 
     private static class Cache {

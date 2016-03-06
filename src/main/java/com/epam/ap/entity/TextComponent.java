@@ -1,9 +1,14 @@
 package com.epam.ap.entity;
 
-interface TextComponent {
-    void toPlaneText(StringBuilder sb);
-    int getCount(Text.Component c);
-/*    <T extends TextComponent> void add(T t);
-    <T extends TextComponent> boolean remove(T t);*/
+public interface TextComponent {
+    int getCount(Type c);
+
+    Type getType();
+
+    void toPlainString(StringBuilder sb);
+
+    enum Type {
+        PARAGRAPH, SENTENCE, WORD, SYMBOL, WORD_SYMBOL, PUNCTUATION, WHITESPACE
+    }
 
 }
